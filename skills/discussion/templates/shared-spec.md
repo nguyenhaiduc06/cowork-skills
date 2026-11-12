@@ -16,7 +16,7 @@ Discussion: #<n>
 
 <!-- only what crosses between participants -->
 
-### <contract name, e.g. result.json>
+### <contract name, e.g. GET /orders>
 
 Producer: @<handle> → consumer: @<handle>
 

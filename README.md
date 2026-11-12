@@ -10,7 +10,7 @@ Only the discussion part is covered. Turning a shared spec into each person's ow
 npx skills add nguyenhaiduc06/cowork-skills
 ```
 
-Needs [`gh`](https://cli.github.com/), logged in to the repo where discussions happen.
+Run it inside the repo where discussions happen (it installs into the current project). Needs [`gh`](https://cli.github.com/), logged in with access to that repo. The `discussion` and `spec` labels are created on first use.
 
 ## Lifecycle
 
@@ -20,48 +20,40 @@ discussion ──(everyone signs off)──▶ shared spec ──▶ scoped spec
 
 | Step      | What happens                                                                  |
 | --------- | ----------------------------------------------------------------------------- |
-| `open`    | Facilitator opens a `discussion` issue and lists participants with scopes.    |
+| `open`    | Open `[Discussion] <topic>` (label `discussion`) with participants and scopes. |
 | `propose` | Claude drafts numbered points to decide (`P1`, `P2`…); contributors reply.    |
 | `sync`    | Claude reads all comments and updates Decided / Open in the issue body.       |
 | `signoff` | Claude posts a versioned draft shared spec + contract; everyone signs off.    |
-| `close`   | Once all signed off: create the `spec` issue, link it, close the discussion.  |
+| `close`   | Once all signed off: create `[Spec] <topic>` (label `spec`), close the discussion. |
 | `amend`   | Minor change to a shared spec: affected people sign off again, log it.        |
 
-Say the step in plain words to Claude: "open a discussion with @viet about fault detection", "sync #80", "close #80".
+Say the step in plain words to Claude: "open a discussion with @bob about the order history page", "sync #80", "close #80". Titles follow the issue's language, e.g. `[Thảo luận] <chủ đề>`.
+
+All steps belong to the facilitator, the person who ran `open`. A contributor who uses Claude can ask it to summarise a discussion, draft their replies to `P` points, or review a draft ("summarise #80 for me", "review the latest draft on #80"); Claude posts nothing without their approval.
+
+The skill works with issues only. Where issues land on a GitHub Projects board is up to the board's own workflows (e.g. auto-add `label:discussion`).
 
 ## Rules everyone follows
 
 - The issue body is a summary kept by the facilitator; the conversation is in comments.
-- Sign off = comment `sign off` yourself. It counts for the latest draft only. Claude never signs off for anyone.
+- Sign off = a comment that says just `sign off`, written by you. It counts for the latest draft only. Claude never signs off for anyone.
 - Comments starting with `🤖 Claude (for @x):` were written by Claude and approved by @x.
 - The shared spec holds boundaries only: problem, solution, scopes, the contract between participants, out of scope.
-- Each participant attaches at least one scoped spec as a sub-issue of the shared spec. Whoever closes the last one closes the shared spec by hand.
+- Each participant attaches at least one scoped spec as a sub-issue of the shared spec, titled `[Spec · <scope>] <topic>`. Whoever closes the last one closes the shared spec by hand.
 - Minor spec change (additive) → comment on the spec. Breaking change or new boundary → new discussion.
-
-## Jira mapping
-
-| Here           | Roughly in Jira                     |
-| -------------- | ----------------------------------- |
-| discussion     | refinement meeting                  |
-| shared spec    | epic                                |
-| scoped spec    | child epic / per-team feature       |
-| ticket         | story / task                        |
 
 ## Example
 
-Feature "faults to fix + drills", two participants (FE + workers, Analysis):
+Feature "order history page", two participants: @alice (BE: orders API) and @bob (FE: web app). @alice facilitates.
 
-1. `open` → discussion #80.
-2. The Analysis owner comments by hand; the facilitator runs `sync`.
-3. `signoff` → Draft v1 with contract `result.json`: adds `shots[].faults[]` (`code` one of 5 values, `confidence`, `frame_index`).
-4. Both comment `sign off`.
-5. `close` → shared spec #81; #80 closed.
-6. Each side writes a scoped spec as a sub-issue of #81 (#82, #87), then their own tickets.
-7. Analysis needs an extra field `side` → `amend`, minor, both sign off again on #81. #82 and #87 close, then #81.
-
-## Tiếng Việt (cho người tham gia)
-
-Bạn không cần dùng Claude. Cứ comment trên issue `discussion`. Với các điểm `P1`, `P2`…, trả lời theo số, ví dụ `P1: ok` hoặc `P2: không, vì …`. Khi có bản nháp spec, đọc rồi comment `sign off`, hoặc ghi chỗ cần sửa. Sign off chỉ tính cho bản nháp mới nhất. Sau khi có shared spec, tạo scoped spec của bạn rồi gắn nó làm sub-issue của shared spec. Hướng dẫn gắn có sẵn trong body của shared spec.
+1. `open` → `[Discussion] Order history page` #80.
+2. `propose` → P1 pagination style, P2 which statuses to show, P3 what the page shows on error. @bob replies `P1: ok`, `P2: no, also show cancelled orders`.
+3. @alice runs `sync`: P1 and P3 move to Decided, P2 settled after one more reply.
+4. `signoff` → Draft v1 with contract `GET /orders?cursor=…` → `{ items: [{ id, status, total, created_at }], next_cursor }`, plus `401` and `5xx` cases.
+5. Both comment `sign off`.
+6. `close` → `[Spec] Order history page` #81; #80 closed.
+7. Each side attaches a scoped spec under #81: `[Spec · BE] Order history page` #82, `[Spec · FE] Order history page` #83. Each works their own way.
+8. FE needs a tracking link → `amend`: add optional `tracking_url`, minor, both sign off again on #81. #82 and #83 close, then #81.
 
 ## License
 

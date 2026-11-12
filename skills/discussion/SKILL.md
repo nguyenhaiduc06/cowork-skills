@@ -25,7 +25,7 @@ GitHub Issues through `gh` only. Write issues and comments in the language the u
 
 ## Steps
 
-The user names a step in plain words ("open a discussion with @viet about…", "sync #80"). Run that step.
+The user names a step in plain words ("open a discussion with @bob about…", "sync #80"). Run that step.
 
 ### open
 
