@@ -14,8 +14,24 @@ Run it inside the repo where discussions happen (it installs into the current pr
 
 ## Lifecycle
 
-```
-discussion ──(everyone signs off)──▶ shared spec ──▶ scoped spec (≥1 per participant) ──▶ tickets
+```mermaid
+flowchart LR
+  subgraph shared["Shared: everyone follows"]
+    D["[Discussion] topic<br/>label: discussion<br/>comments, replies to P1, P2…"]
+    S["[Spec] topic<br/>label: spec<br/>scopes, contract, out of scope"]
+    D -- "everyone signs off → close" --> S
+    S -- "minor change: amend, sign off again" --> S
+    S -. "breaking change → new discussion" .-> D
+  end
+  subgraph own["Each participant's own way"]
+    A["[Spec · BE] topic"]
+    B["[Spec · FE] topic"]
+    T["tickets, PRs, tools"]
+  end
+  S -- sub-issue --> A
+  S -- sub-issue --> B
+  A --> T
+  B --> T
 ```
 
 | Step      | What happens                                                                  |
