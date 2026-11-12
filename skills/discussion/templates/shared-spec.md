@@ -34,7 +34,7 @@ Errors:
 
 ## Scoped specs
 
-Every participant attaches at least one scoped spec as a sub-issue of this issue.
+Every participant attaches at least one scoped spec as a sub-issue of this issue. Suggested title: `[Spec · <scope>] <topic>`.
 
 - [ ] @<handle>: <scope>: _none yet_
 

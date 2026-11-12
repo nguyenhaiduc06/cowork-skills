@@ -30,7 +30,7 @@ The user names a step in plain words ("open a discussion with @viet about…", "
 ### open
 
 1. Get the goal, and every participant as `@handle: scope`. The facilitator is a participant too.
-2. Create the issue with label `discussion` and the body from [templates/discussion.md](templates/discussion.md). Facilitator = the `gh` user (`gh api user --jq .login`).
+2. Create the issue titled `[Discussion] <topic>` (in Vietnamese: `[Thảo luận] <chủ đề>`), with label `discussion` and the body from [templates/discussion.md](templates/discussion.md). Facilitator = the `gh` user (`gh api user --jq .login`).
 3. Done when the issue exists and you've given the facilitator its URL.
 
 ### propose
@@ -57,7 +57,7 @@ Run on a shared spec (`sync <spec #>`), sync instead refreshes its Scoped specs 
 ### close
 
 1. Only the facilitator closes. Check every participant signed off the latest draft. If anyone is missing, stop and name them: the way forward is to wait, or to remove that participant (below).
-2. Confirm with the facilitator, then create the shared spec issue: label `spec`, body = the signed-off draft, with Discussion linked and a first Change log entry.
+2. Confirm with the facilitator, then create the shared spec issue titled `[Spec] <topic>`: label `spec`, body = the signed-off draft, with Discussion linked and a first Change log entry.
 3. Comment the shared spec link on the discussion, then close the discussion. Closing by hand on GitHub is just as valid.
 
 ### amend
