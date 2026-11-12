@@ -18,7 +18,7 @@ GitHub Issues through `gh` only. Write issues and comments in the language the u
 
 - **The body is the summary, the comments are the conversation.** You keep the issue body up to date; the discussion itself happens in comments.
 - **Voice**: every comment you post starts with `🤖 Claude (for @<user>):`, the user being whoever you're working for. Show them the draft comment and post it only after they approve. Body edits (facilitator only) need no approval.
-- **Sign off** is a comment `✅ sign off` written by the participant themselves. You never post a sign off for anyone, the facilitator included. A sign off counts only for the latest draft posted before it; a new draft resets the checklist.
+- **Sign off** is a comment whose whole text is `sign off` (any case), written by the participant themselves. You never post a sign off for anyone, the facilitator included. A sign off counts only for the latest draft posted before it; a new draft resets the checklist.
 - **The facilitator decides.** A point moves to Decided only when the facilitator confirms it, even if every contributor agreed.
 - **Shared spec = boundaries only**: the problem, the user-facing solution, who owns which scope, the contract between participants (with sample payloads and error cases), out of scope. Decisions internal to one scope stay out, and so do contracts internal to one participant.
 - Labels: the discussion issue carries `discussion`, the shared spec carries `spec`, and neither carries a triage label. Before creating either issue, make sure the label exists: `gh label create discussion --color 5319E7 --description "Multi-person design discussion" --force` (and `spec`, `0E8A16`, `"Shared spec agreed in a discussion"`).
@@ -42,7 +42,7 @@ The user names a step in plain words ("open a discussion with @viet about…", "
 
 1. Read **all** comments, every time: `gh api repos/{owner}/{repo}/issues/<n>/comments --paginate`.
 2. Tell the facilitator what changed: new opinions, answers to `P` points, points that look agreed, new questions.
-3. Facilitator confirms which points move to Decided; update the body's Decided, Open and Sign off sections. Sign off checklist: tick a participant only if they commented `✅ sign off` after the latest draft.
+3. Facilitator confirms which points move to Decided; update the body's Decided, Open and Sign off sections. Sign off checklist: tick a participant only if they commented `sign off` after the latest draft.
 4. Offer a reply comment (your view, questions for contributors) if it would move things forward; post only after approval.
 
 Run on a shared spec (`sync <spec #>`), sync instead refreshes its Scoped specs checklist from `gh api repos/{owner}/{repo}/issues/<n>/sub_issues`.
@@ -50,7 +50,7 @@ Run on a shared spec (`sync <spec #>`), sync instead refreshes its Scoped specs 
 ### signoff
 
 1. Write the draft shared spec from Decided, using [templates/shared-spec.md](templates/shared-spec.md), headed `Draft v<N>` (N = previous draft + 1).
-2. Facilitator approves, then post it as a comment that @mentions every participant and asks them to review and comment `✅ sign off` or what to change.
+2. Facilitator approves, then post it as a comment that @mentions every participant and asks them to review and comment `sign off` or what to change.
 3. Reset the body's Sign off checklist to `Draft v<N>` with every participant unticked, linking the draft comment.
 4. Re-running signoff with nothing changed posts a short reminder to those not yet signed off, with no new version.
 
