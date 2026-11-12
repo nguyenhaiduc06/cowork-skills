@@ -3,7 +3,12 @@ name: discussion
 description: Run a multi-person design discussion on GitHub Issues, from discussion issue to signed-off shared spec. Use when the user wants to open, propose points for, sync, request sign off on, or close a discussion, or amend a shared spec.
 ---
 
-The user is the **facilitator** of a discussion between several **participants**, each owning one **scope**. The facilitator drives every step with you. The other participants are **contributors**: they comment by hand on GitHub and may not use Claude at all, so everything must work for someone who only reads the issue.
+A discussion is between several **participants**, each owning one **scope**. One of them is the **facilitator** (named in the issue body): they drive the discussion and own the body. The others are **contributors**: they comment, by hand or with Claude, so everything must work for someone who only reads the issue.
+
+First work out the user's **role**: the facilitator is whoever runs `open`; on an existing issue, compare `gh api user --jq .login` with the Facilitator line in the body.
+
+- **Facilitator**: every step below is theirs.
+- **Contributor**: help them read the discussion (summarise comments and Open points), draft their comments and replies to `P` points, and review drafts. Leave the issue body, `propose`, `signoff`, `close` and `amend` to the facilitator; if the contributor wants one of those, draft a comment asking the facilitator for it.
 
 Lifecycle: **discussion** issue → **shared spec** issue → one or more **scoped spec** issues per participant (sub-issues of the shared spec) → tickets. This skill covers the discussion and the shared spec only. Scoped specs and tickets belong to each participant's own workflow.
 
@@ -12,7 +17,7 @@ GitHub Issues through `gh` only. Write issues and comments in the language the u
 ## Ground rules
 
 - **The body is the summary, the comments are the conversation.** You keep the issue body up to date; the discussion itself happens in comments.
-- **Voice**: every comment you post starts with `🤖 Claude (for @<facilitator>):`. Show the facilitator the draft comment and post it only after they approve. Body edits need no approval.
+- **Voice**: every comment you post starts with `🤖 Claude (for @<user>):`, the user being whoever you're working for. Show them the draft comment and post it only after they approve. Body edits (facilitator only) need no approval.
 - **Sign off** is a comment `✅ sign off` written by the participant themselves. You never post a sign off for anyone, the facilitator included. A sign off counts only for the latest draft posted before it; a new draft resets the checklist.
 - **The facilitator decides.** A point moves to Decided only when the facilitator confirms it, even if every contributor agreed.
 - **Shared spec = boundaries only**: the problem, the user-facing solution, who owns which scope, the contract between participants (with sample payloads and error cases), out of scope. Decisions internal to one scope stay out, and so do contracts internal to one participant.

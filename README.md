@@ -1,6 +1,6 @@
 # cowork-skills
 
-Skills for running design discussions between several people on GitHub Issues. One person (the facilitator) drives with Claude; everyone else just comments. Contributors don't need to use Claude.
+Skills for running design discussions between several people on GitHub Issues. One person, the facilitator, drives the discussion; everyone else contributes by commenting. Anyone can use the skill in either role, and contributors don't need Claude at all.
 
 Only the discussion part is covered. Turning a shared spec into each person's own specs and tickets stays with whatever workflow each person uses.
 
