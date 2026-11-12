@@ -26,12 +26,13 @@ flowchart LR
   subgraph own["Each participant's own way"]
     A["[Spec · BE] topic"]
     B["[Spec · FE] topic"]
-    T["tickets, PRs, tools"]
+    TA["BE tickets, PRs, tools"]
+    TB["FE tickets, PRs, tools"]
   end
   S -- sub-issue --> A
   S -- sub-issue --> B
-  A --> T
-  B --> T
+  A --> TA
+  B --> TB
 ```
 
 | Step      | What happens                                                                  |
